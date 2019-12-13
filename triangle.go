@@ -1,6 +1,8 @@
 // Package triangle can determine the kind of triangle that we have sides for
 package triangle
 
+import "math"
+
 // Kind what kind of triangle?
 // equilateral(3), isosisosceles(2), scalene(1), or not(0)
 type Kind int
@@ -24,6 +26,13 @@ func KindFromSides(a, b, c float64) Kind {
 
 	// to be a triangle at all, all sides have to be of length > 0
 	if a <= 0 || b <= 0 || c <= 0 {
+		k = NaT
+		return k
+	}
+	// handle Nan and Inf
+	// https://play.golang.org/p/qHXIoj-JMAw 0 checks for -Inf and +Inf
+	if math.IsNaN(a) || math.IsNaN(b) || math.IsNaN(c) ||
+		math.IsInf(a, 0) || math.IsInf(b, 0) || math.IsInf(c, 0) {
 		k = NaT
 		return k
 	}
