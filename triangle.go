@@ -30,7 +30,7 @@ func KindFromSides(a, b, c float64) Kind {
 
 	// the sum of the lengths of any two sides must be greater than or equal to
 	// the length of the third side
-	if a+b < c {
+	if a+b < c || a+c < b || b+c < a {
 		k = NaT
 		return k
 	}
