@@ -43,6 +43,12 @@ func KindFromSides(a, b, c float64) Kind {
 		k = NaT
 		return k
 	}
+	// degenerate triangle, a straight line
+	// still want to know how many sides are the same though.
+	// ie triangle_test.go:81: Triangle with sides, 2, 4, 2 = 0, want 2
+	if a+b == c || a+c == b || b+c == a {
+		k = NaT
+	}
 
 	// how many are the same?
 	ab1 := a == b
