@@ -1,12 +1,8 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package triangle should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+// Package triangle can determine the kind of triangle that we have sides for
 package triangle
 
 // Kind what kind of triangle?
-// Notice KindFromSides() returns this type. Pick a suitable data type.
+// equilateral(3), isosisosceles(2), scalene(1), or not(0)
 type Kind int
 
 const (
@@ -21,13 +17,13 @@ const (
 )
 
 // KindFromSides what kind of triangle do the 3 sides form?
-// How many sides are the same?
+// eg How many sides are the same?
 func KindFromSides(a, b, c float64) Kind {
 
 	var k Kind
 
 	// to be a triangle at all, all sides have to be of length > 0
-	if a < 0 || b < 0 || c < 0 {
+	if a <= 0 || b <= 0 || c <= 0 {
 		k = NaT
 		return k
 	}
@@ -43,20 +39,10 @@ func KindFromSides(a, b, c float64) Kind {
 	ab1 := a == b
 	ac2 := a == c
 	bc3 := b == c
-	same := 0
-	if ab1 && ac2 {
-		same++
-	}
-	if ab1 && bc3 {
-		same++
-	}
-	if ac2 && bc3 {
-		same++
-	}
 
-	if same == 3 {
+	if ab1 && ac2 && bc3 {
 		k = Equ
-	} else if same == 2 {
+	} else if ab1 || ac2 || bc3 {
 		k = Iso
 	} else {
 		k = Sca
